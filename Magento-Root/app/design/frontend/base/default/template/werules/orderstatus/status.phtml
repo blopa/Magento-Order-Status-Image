@@ -21,7 +21,7 @@
 	$url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . "skin/frontend/default/default/images/werules/orderstatus/"; // get status img url
 	$statusimg = "status1.png"; // default status image
 	$message = "If you have any questions, please feel free to contact us. "; // default status message
-	//echo orderstatus;
+	//echo orderstatus; // uncomment this to check the current order status of an order. Use this only on production
 	switch ($orderstatus)
 	{
 		case "canceled": // if order is canceled
