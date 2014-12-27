@@ -1,0 +1,65 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ */
+?>
+<?php
+	$orderid = Mage::app()->getRequest()->getParam('order_id'); // get order ID from URL
+	$order = Mage::getModel('sales/order')->load($orderid); // load order
+	$orderstatus = $order->getStatus(); // get order status
+	$url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . "skin/frontend/default/default/images/werules/orderstatus/"; // get status img url
+	$statusimg = "status1.png"; // default status image
+	$message = "If you have any questions, please feel free to contact us. "; // default status message
+	//echo orderstatus;
+	switch ($orderstatus)
+	{
+		case "canceled": // if order is canceled
+			$statusimg = "status0.png";
+			$message = "Your order is currently canceled, if you think this is a mistake, please feel free to contact us. ";
+			break;
+		case "payment_received": // if payment is received. This is NOT a magento standard, I had to create a order status for this
+			$statusimg = "status2.png";
+			$message = "We got your payment. If you have any questions. please feel free to contact us. ";
+			break;
+		case "packing": // if order is packing. This is NOT a magento standard, I had to create a order status for this
+			$statusimg = "status2.png";
+			$message = "Your order is packing. If you have any questions. please feel free to contact us. ";
+			break;
+		case "shipped": // if order is shipped. This is NOT a magento standard, I had to create a order status for this
+			$statusimg = "status3.png";
+			$message = "Your order is shipped. If you have any questions. please feel free to contact us. ";
+			break;
+		case "complete": // if order is completed
+			$statusimg = "status4.png";
+			$message = "You order was delivered. If you have any questions. please feel free to contact us. ";
+			break;
+	}
+?>
+<div class="row order-info-box">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-title">
+                <h2><?php echo $this->__('Order Status') ?></h2>
+            </div>
+            <div class="box-content">
+                <img src="<?php echo $url . $statusimg; ?>" style="margin-bottom: 10px;"></img>
+				<p>
+					<?php echo $this->__($message); ?>
+					<?php echo $this->__('Contact us by clicking'); ?>
+					<a href="<?php echo $this->getUrl('contacts');?>"> <?php echo $this->__('here') ?></a>.
+				</p>
+            </div>
+        </div>
+    </div>
+</div>
